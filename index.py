@@ -7,15 +7,18 @@ from history import History
 from db import user
 from db import movement
 
+from menu import newWallet
+
+def handleNewWallet(userController):
+  confirm, name = newWallet.NewWallet.open()
+  if confirm:
+    userController.create(1, name)
+
 def main():
-  # userController = user.UserController()
-  # userController.dropTable()
-  # userController.createTable()
-  # userController.create(2, "Mono")
-  
+  userController = user.UserController()
   movementController = movement.MovementController()
-  movementController.createTable()
-  # movementController.create(1, 1, 2, 200, "Helados")
+
+  # userController.createTable()
 
   app = App("Wallet app")
 
@@ -23,7 +26,7 @@ def main():
   app.configure(menu=menubar)
   menuadd = tk.Menu(menubar, tearoff=0)
 
-  menuadd.add_command(label="Add wallet")
+  menuadd.add_command(label="Add wallet", command=lambda: handleNewWallet(userController))
   menuadd.add_separator()
   menuadd.add_command(label="Exit", command=app.quit)
   menubar.add_cascade(label="File", menu=menuadd)
@@ -36,8 +39,8 @@ def main():
   history = History(container)
   history.grid(column=0, row=1, pady=(5, 0))
 
-  movements = movementController.getAll()
-  history.setData(movements)
+  # movements = movementController.getAll()
+  # history.setData(movements)
 
   app.mainloop()
 
