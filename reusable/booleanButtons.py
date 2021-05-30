@@ -8,12 +8,17 @@ class BooleanButtons(ttk.Frame):
     self._initWidgets(truebuttontext, falsebuttontext)
 
   def _initWidgets(self, truebuttontext, falsebuttontext):
-    self.yesButton = ttk.Button(self, text=truebuttontext, command=lambda:self._handle(True))
-    self.yesButton.grid(column=0, row=0, sticky=tk.W)
-    self.yesButton.focus()
+    self.trueButton = ttk.Button(self, text=truebuttontext, command=lambda:self._handle(True))
+    self.trueButton.grid(column=0, row=0, sticky=tk.W)
     
-    self.noButton = ttk.Button(self, text=falsebuttontext, command=lambda:self._handle(False))
-    self.noButton.grid(column=1, row=0, sticky=tk.W, padx=(5, 0))
+    self.falseButton = ttk.Button(self, text=falsebuttontext, command=lambda:self._handle(False))
+    self.falseButton.grid(column=1, row=0, sticky=tk.W, padx=(5, 0))
 
   def _handle(self, boolean):
     self.command(boolean)
+
+  def focusTrue(self):
+    self.trueButton.focus()
+
+  def focusFalse(self):
+    self.falseButton.focus()

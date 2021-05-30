@@ -10,6 +10,7 @@ class NewWallet(tk.Toplevel):
     self.resizable(False, False)
     self.resultVar = tk.BooleanVar()
     self._initWidgets()
+    self.protocol("WM_DELETE_WINDOW", lambda: self.resultVar.set(False))
 
   def _initWidgets(self):
     self.container = ttk.Frame(self, padding=10)
@@ -26,6 +27,7 @@ class NewWallet(tk.Toplevel):
 
     self.nameEntry = ttk.Entry(self.container)
     self.nameEntry.grid(column=1, row=0, padx=(5, 0), pady=(10, 0))
+    self.nameEntry.focus()
 
     self.lastnameEntry = ttk.Entry(self.container)
     self.lastnameEntry.grid(column=1, row=1, padx=(5, 0), pady=(10, 0))
@@ -33,7 +35,7 @@ class NewWallet(tk.Toplevel):
     self.initialMoneyEntry = ttk.Entry(self.container)
     self.initialMoneyEntry.grid(column=1, row=2, padx=(5, 0), pady=(10, 0))
     
-    self.yesnoButtons = booleanButtons.BooleanButtons(self.container, self._handleBooleanButtons)
+    self.yesnoButtons = booleanButtons.BooleanButtons(self.container, self._handleBooleanButtons, truebuttontext="Create")
     self.yesnoButtons.grid(column=1, row=3)
 
   def _handleBooleanButtons(self, boolean):
@@ -43,8 +45,10 @@ class NewWallet(tk.Toplevel):
     self.wait_variable(self.resultVar)
     result = self.resultVar.get()
     name = self.nameEntry.get()
+    lastname = self.lastnameEntry.get()
+    initialMoney = self.initialMoneyEntry.get()
     self.destroy()
-    return (result, name)
+    return (result, name, lastname, initialMoney)
 
   @staticmethod
   def open():

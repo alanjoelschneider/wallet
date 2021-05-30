@@ -68,3 +68,6 @@ class Wallet(tk.Frame):
     self.moneyEntryVar.set(formatted)
     self.moneyEntry.delete(0, tk.END)
     self.moneyEntry.insert(0, formatted)
+
+  def setMoney(self, money):
+    self.totalMoneyVar.set(money)
